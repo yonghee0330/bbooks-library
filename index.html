@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>희망도서 바로대출 | 비북스 점주 지원 서비스</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:   #1a4a2e;
+      --green2:  #255c3a;
+      --green3:  #2e7d4f;
+      --accent:  #3aaa6a;
+      --bg:      #f7f8f5;
+      --white:   #ffffff;
+      --text:    #1c2b22;
+      --muted:   #5a7060;
+      --border:  #d4ddd7;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── 히어로 ──────────────────────────────── */
+    .hero {
+      background: var(--green);
+      color: var(--white);
+      padding: 72px 24px 64px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.8);
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+    .hero-subtitle {
+      font-size: 15px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: opacity .18s;
+    }
+    .hero-cta:hover { opacity: .85; }
+    .hero-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+    }
+
+    /* ── 섹션 공통 ──────────────────────────── */
+    .section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+    .section + .section { padding-top: 0; }
+
+    .kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(20px, 3.5vw, 26px);
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 28px;
+      line-height: 1.4;
+    }
+
+    /* ── 혜택 카드 ──────────────────────────── */
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .benefit-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+    }
+    .benefit-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+    .benefit-num  {
+      display: block;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .benefit-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── 스텝 ────────────────────────────────── */
+    .step-list { display: flex; flex-direction: column; gap: 12px; }
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      background: var(--green);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+    .step-body h3 { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+    .step-body p  { font-size: 13px; color: var(--muted); }
+    .step-link {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+    }
+
+    /* ── 알림 박스 ──────────────────────────── */
+    .info-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 18px 20px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .info-box strong { color: var(--green); }
+
+    /* ── 신청자 공유 ─────────────────────────── */
+    .form-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .share-form { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+    .share-form label span {
+      display: block; font-size: 12px; font-weight: 700;
+      color: var(--muted); margin-bottom: 5px;
+    }
+    .share-form label span em {
+      font-style: normal; color: var(--accent);
+      font-size: 11px; margin-left: 4px;
+    }
+    .share-form input {
+      width: 100%; padding: 10px 12px;
+      border: 1px solid var(--border); border-radius: 8px;
+      font-size: 14px; color: var(--text);
+      font-family: inherit; outline: none; transition: border-color .15s;
+      background: var(--bg);
+    }
+    .share-form input:focus { border-color: var(--accent); background: #fff; }
+    .submit-btn {
+      align-self: flex-start;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 11px 26px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity .15s;
+    }
+    .submit-btn:hover { opacity: .85; }
+
+    /* ── 신청자 목록 ─────────────────────────── */
+    #names-list {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .name-tag {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .name-tag strong { color: var(--green); font-weight: 700; }
+
+    /* ── 아코디언 ────────────────────────────── */
+    .accordion { display: flex; flex-direction: column; gap: 8px; }
+    details {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    summary {
+      padding: 16px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-size: 18px;
+      color: var(--accent);
+      font-weight: 300;
+      transition: transform .2s;
+    }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p {
+      padding: 0 18px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── 푸터 ────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      .benefit-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 히어로 -->
+  <header class="hero">
+    <p class="hero-badge">비북스 점주 지원 서비스</p>
+    <h1 class="hero-title">희망도서 바로대출<br />이렇게 활용하세요</h1>
+    <p class="hero-subtitle">
+      비북스가 점주님들을 위해 안내하는<br />
+      부천시립도서관 × 모알보알 연계 서비스
+    </p>
+    <a class="hero-cta" href="https://www.bcl.go.kr/site/homepage/menu/viewMenu?menuid=019001002003" target="_blank" rel="noopener">신청 페이지 바로가기 →</a>
+    <p class="hero-note">⏰ 매월 1일 오픈 · 선착순 마감</p>
+  </header>
+
+  <main>
+
+    <!-- 왜 활용해야 할까 -->
+    <section class="section">
+      <p class="kicker">핵심 활용법</p>
+      <h2 class="section-title">점주님께 딱 맞는<br />이유가 있어요</h2>
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <span class="benefit-icon">📖</span>
+          <strong class="benefit-num">신간 열람</strong>
+          <p>출간된 신간을 빠르게 빌려볼 수 있어요. 구입 전 미리 읽어보세요.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon">🪟</span>
+          <strong class="benefit-num">서가 샘플</strong>
+          <p>대출 도서를 서가에 진열해 샘플로 활용 후, 판매되면 주문하는 방식으로 운영 가능해요.</p>
+        </div>
+        <div class="benefit-card">
+          <span class="benefit-icon">🏡</span>
+          <strong class="benefit-num">책방 운영</strong>
+          <p>동네책방 운영에 실질적인 도움이 돼요. 무엇보다 이웃 책방과 연결되는 즐거움도 있어요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 신청 방법 -->
+    <section class="section" style="padding-top:0">
+      <p class="kicker">신청 흐름</p>
+      <h2 class="section-title">어떻게 신청하나요?</h2>
+      <div class="step-list">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>도서관 사이트 접속</h3>
+            <p>bcl.go.kr → 자료검색 → 희망자료신청 → 희망도서바로대출</p>
+            <a class="step-link" href="https://www.bcl.go.kr/site/homepage/menu/viewMenu?menuid=019001002003" target="_blank" rel="noopener">신청 페이지 바로가기</a>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>읽고 싶은 책 최대 2권 검색</h3>
+            <p>출판 후 3년 이내, 정가 5만원 미만 도서만 신청 가능</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>수령처: <strong style="color:var(--green)">모알보알</strong> 선택</h3>
+            <p>비북스의 이웃서점 모알보알에서 신청하시면, 비북스로 일괄 수령됩니다.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>신청 완료 후 수령</h3>
+            <p>도서 입고 알림 후 비북스에서 수령 및 진열 가능해요.<br>
+            시간이 되시는 분은 모알보알에 직접 방문하셔도 좋아요! 책방 구경도 함께 😊</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 안내 박스 -->
+    <section class="section" style="padding-top:0">
+      <div class="info-box">
+        📍 <strong>수령 안내</strong><br>
+        모알보알(부천 심곡동 그림책 전문 동네책방)에서 신청하신 도서는
+        비북스로 일괄 수령됩니다. 신청 시 수령처를 <strong>모알보알</strong>로 선택해 주세요.<br><br>
+        문의: <strong>070-8222-6991</strong>
+      </div>
+    </section>
+
+    <!-- 신청자 알림 -->
+    <section class="section form-section" style="padding: 56px 0">
+      <div style="max-width:680px;margin:0 auto;padding:0 24px">
+        <p class="kicker">신청하셨나요?</p>
+        <h2 class="section-title" style="margin-bottom:6px">저 신청했어요! 📚</h2>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:22px">
+          이름과 신청 도서를 남겨주시면 모알보알에서 비북스 건으로 함께 챙겨드려요.
+        </p>
+        <form id="share-form" class="share-form">
+          <label>
+            <span>이름 <em>필수</em></span>
+            <input type="text" name="name" required placeholder="이름을 입력해주세요" />
+          </label>
+          <label>
+            <span>신청 도서 1 <em>필수</em></span>
+            <input type="text" name="book1" required placeholder="첫 번째 도서 제목" />
+          </label>
+          <label>
+            <span>신청 도서 2 <small style="color:var(--muted);font-size:11px">선택</small></span>
+            <input type="text" name="book2" placeholder="두 번째 도서 제목 (선택)" />
+          </label>
+          <button type="submit" class="submit-btn">알림 보내기</button>
+        </form>
+
+        <!-- 신청자 목록 -->
+        <div id="names-list"></div>
+      </div>
+    </section>
+
+    <!-- 유의사항 -->
+    <section class="section">
+      <p class="kicker">신청 전 확인</p>
+      <h2 class="section-title">유의사항</h2>
+      <div class="accordion">
+        <details>
+          <summary>어떤 책을 신청할 수 있나요?</summary>
+          <p>출판 후 3년 이내(26년 기준 24년 출간까지), 정가 5만원 미만 도서만 가능합니다.</p>
+        </details>
+        <details>
+          <summary>신청할 수 없는 책은요?</summary>
+          <p>만화/그래픽노블, 잡지, 학술서, 필사책, 팝업북, 컬러링북, 50페이지 미만 소책자 등은 신청이 어렵습니다.</p>
+        </details>
+        <details>
+          <summary>대출 기간은 얼마나 되나요?</summary>
+          <p>14일 (7일 1회 연장 가능). 연체 시 연체일수만큼 대출이 정지됩니다.</p>
+        </details>
+        <details>
+          <summary>언제 신청할 수 있나요?</summary>
+          <p>매월 1일 오픈, 선착순 마감. 월별 예산 소진 시 다음달 1일에 신청 가능합니다.</p>
+        </details>
+        <details>
+          <summary>도서관 회원증이 있어야 하나요?</summary>
+          <p>네, 도서관 회원증이 필요합니다. 모바일 회원증도 가능합니다.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <a href="https://moim.bbooks.co.kr">← 비북스 모임 보러가기</a>
+  </footer>
+
+  <script>
+    const APPS_SCRIPT_URL = '';
+
+    // 로컬 신청자 목록 (새로고침 전까지 유지)
+    const submitted = [];
+
+    function renderNames() {
+      const list = document.getElementById('names-list');
+      if (!submitted.length) { list.innerHTML = ''; return; }
+      list.innerHTML = submitted.map(s =>
+        `<div class="name-tag"><strong>${s.name}</strong> · ${s.book1}${s.book2 ? ' / ' + s.book2 : ''}</div>`
+      ).join('');
+    }
+
+    document.getElementById('share-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const fd = new FormData(form);
+      const payload = {
+        name:   fd.get('name'),
+        book1:  fd.get('book1'),
+        book2:  fd.get('book2') || '',
+        submittedAt: new Date().toISOString()
+      };
+
+      if (APPS_SCRIPT_URL) {
+        try {
+          await fetch(APPS_SCRIPT_URL, {
+            method: 'POST', mode: 'no-cors',
+            body: JSON.stringify(payload)
+          });
+        } catch (err) { console.error(err); }
+      }
+
+      submitted.push(payload);
+      renderNames();
+      alert(`${payload.name}님, 알림 완료! 비북스에서 함께 챙겨드릴게요 📚`);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
